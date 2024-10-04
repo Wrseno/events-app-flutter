@@ -21,7 +21,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool _rememberMe = false;
-  bool _obscureText = true; // State untuk menyembunyikan atau menampilkan password
+  bool _obscureText =
+      true; // State untuk menyembunyikan atau menampilkan password
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               // Logo
               Image.network(
-                'https://static.wikia.nocookie.net/logopedia/images/8/8b/Politeknik_Negeri_Semarang.png/revision/latest?cb=20190922203753',
+                'assets/images/polines.webp',
                 height: 130,
               ),
               SizedBox(height: 5),
@@ -75,7 +76,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        _obscureText = !_obscureText; // Toggle visibilitas password
+                        _obscureText =
+                            !_obscureText; // Toggle visibilitas password
                       });
                     },
                   ),
