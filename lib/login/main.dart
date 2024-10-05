@@ -34,8 +34,8 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Logo
-              Image.network(
-                'assets/images/polines.webp',
+              Image.asset(
+                'assets/images/polines.jpeg',
                 height: 130,
               ),
               SizedBox(height: 5),
