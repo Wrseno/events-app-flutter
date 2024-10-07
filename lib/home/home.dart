@@ -10,55 +10,139 @@ class EventApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: EventScreen(),
+      routes: {
+        '/event-detail': (context) => EventDetailScreen(),
+      },
     );
   }
 }
 
-class EventScreen extends StatelessWidget {
+class EventScreen extends StatefulWidget {
+  @override
+  _EventScreenState createState() => _EventScreenState();
+}
+
+class _EventScreenState extends State<EventScreen> {
+  String selectedCategory = '';
+
+  void _selectCategory(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.blue[50],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/appbar_home.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Hi, Atsiila Arya 👋',
-              style: TextStyle(color: Colors.black87, fontSize: 24),
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
+            SizedBox(height: 4),
             Text(
               "Let's explore the event!",
-              style: TextStyle(color: Colors.black54, fontSize: 16),
+              style: TextStyle(color: Colors.white70, fontSize: 16),
             ),
           ],
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none, color: Colors.black54),
+            icon: Icon(Icons.notifications_none, color: Colors.white70),
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: Size.fromHeight(232),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
+              height: 50,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Search event',
-                  border: InputBorder.none,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: 'Search event',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // Filter action
+                    },
+                    icon: Icon(Icons.filter_list, color: Colors.black54),
+                  ),
+                ],
               ),
             ),
           ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Event Navigation',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.explore),
+              title: Text('Explore'),
+              onTap: () {
+                // Navigate to explore
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.event),
+              title: Text('My Events'),
+              onTap: () {
+                // Navigate to My Events
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.confirmation_number),
+              title: Text('Tickets'),
+              onTap: () {
+                // Navigate to Tickets
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                // Navigate to Profile
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -67,49 +151,77 @@ class EventScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Category Chips
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CategoryChip(label: 'Seminar'),
-                  CategoryChip(label: 'Competition'),
-                  CategoryChip(label: 'Workshop'),
-                  CategoryChip(label: 'Exhibition'),
+                  CategoryChip(
+                    label: 'Seminar',
+                    isSelected: selectedCategory == 'Seminar',
+                    onSelected: () => _selectCategory('Seminar'),
+                  ),
+                  CategoryChip(
+                    label: 'Competition',
+                    isSelected: selectedCategory == 'Competition',
+                    onSelected: () => _selectCategory('Competition'),
+                  ),
+                  CategoryChip(
+                    label: 'Workshop',
+                    isSelected: selectedCategory == 'Workshop',
+                    onSelected: () => _selectCategory('Workshop'),
+                  ),
+                  CategoryChip(
+                    label: 'Exhibition',
+                    isSelected: selectedCategory == 'Exhibition',
+                    onSelected: () => _selectCategory('Exhibition'),
+                  ),
                 ],
               ),
               SizedBox(height: 20),
-
-              // Trending Events Section
               SectionHeader(title: 'Trending Events'),
-              TrendingEventCard(
-                title: 'Seminar Nasional Techcomfest 2024',
-                location: 'GKT Lt. 2',
-                date: '12 Januari 2024',
+              SizedBox(
+                height: 250,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    TrendingEventCard(
+                      title: 'Seminar Nasional Techcomfest 2024',
+                      location: 'GKT Lt. 2',
+                      date: '12 Januari 2024',
+                      imageUrl: 'images/event1.png',
+                    ),
+                    TrendingEventCard(
+                      title: 'Workshop: Creative Design',
+                      location: 'Jakarta, Indonesia',
+                      date: '14 Februari 2024',
+                      imageUrl: 'images/event1.png',
+                    ),
+                    TrendingEventCard(
+                      title: 'Exhibition: Tech Innovations',
+                      location: 'Bandung, Indonesia',
+                      date: '20 Maret 2024',
+                      imageUrl: 'images/event1.png',
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
-
-              // Events Near You Section
               SectionHeader(title: 'Events Near You'),
-              Row(
-                children: [
-                  Expanded(
-                    child: EventNearYouCard(
-                      title: 'Competition : Business Plan',
-                      location: 'Jakarta, Indonesia',
-                      date: 'July 23 2023',
-                      imageUrl: 'https://example.com/business_plan_image.png',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: EventNearYouCard(
-                      title: 'Workshop: Training Basic',
-                      location: 'Jakarta, Indonesia',
-                      date: 'December 15 2023',
-                      imageUrl: 'https://example.com/training_basic_image.png',
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  itemCount: 5, // Dynamic based on event count
+                  itemBuilder: (context, index) {
+                    return EventNearYouCard(
+                      title: 'Workshop: Event $index',
+                      location: 'Location $index',
+                      date: 'Date $index',
+                      imageUrl: 'images/event1.png',
+                      onTap: () {
+                        Navigator.pushNamed(context, '/event-detail');
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -121,7 +233,7 @@ class EventScreen extends StatelessWidget {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
           BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
-          BottomNavigationBarItem(icon: Icon(Icons.confirmation_number), label: 'Ticket'), // Ganti Icon ticket
+          BottomNavigationBarItem(icon: Icon(Icons.confirmation_number), label: 'Ticket'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
@@ -131,15 +243,24 @@ class EventScreen extends StatelessWidget {
 
 class CategoryChip extends StatelessWidget {
   final String label;
+  final bool isSelected;
+  final VoidCallback onSelected;
 
-  const CategoryChip({required this.label});
+  const CategoryChip({
+    required this.label,
+    required this.isSelected,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      label: Text(label),
-      backgroundColor: Colors.blue[100],
-      labelStyle: TextStyle(color: Colors.blue[800]),
+    return GestureDetector(
+      onTap: onSelected,
+      child: Chip(
+        label: Text(label),
+        backgroundColor: isSelected ? const Color.fromARGB(255, 32, 90, 249) : const Color.fromARGB(255, 255, 255, 255),
+        labelStyle: TextStyle(color: isSelected ? Colors.white : const Color.fromARGB(255, 32, 90, 249)),
+      ),
     );
   }
 }
@@ -171,24 +292,71 @@ class TrendingEventCard extends StatelessWidget {
   final String title;
   final String location;
   final String date;
+  final String imageUrl;
 
   const TrendingEventCard({
     required this.title,
     required this.location,
     required this.date,
+    required this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16),
-        title: Text(title),
-        subtitle: Text('$location\n$date'),
-        trailing: ElevatedButton(
-          onPressed: () {},
-          child: Text('Join'),
+    return Container(
+      width: 350,
+      margin: EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: AssetImage(imageUrl),
+          fit: BoxFit.cover,
         ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                color: Colors.black.withOpacity(0.6),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    location,
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Join'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: (Colors.orange),
+                      foregroundColor: (Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -199,34 +367,53 @@ class EventNearYouCard extends StatelessWidget {
   final String location;
   final String date;
   final String imageUrl;
+  final VoidCallback onTap;
 
   const EventNearYouCard({
     required this.title,
     required this.location,
     required this.date,
     required this.imageUrl,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network(imageUrl, fit: BoxFit.cover), // Mengganti gambar dengan URL
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(location),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(date),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(imageUrl, fit: BoxFit.cover),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(location),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(date),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EventDetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Event Detail'),
+      ),
+      body: Center(
+        child: Text('Detail of the selected event goes here'),
       ),
     );
   }
