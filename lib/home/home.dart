@@ -40,7 +40,7 @@ class _EventScreenState extends State<EventScreen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/appbar_home.png'),
+              image: AssetImage('assets/images/appbar_home.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -187,19 +187,19 @@ class _EventScreenState extends State<EventScreen> {
                       title: 'Seminar Nasional Techcomfest 2024',
                       location: 'GKT Lt. 2',
                       date: '12 Januari 2024',
-                      imageUrl: 'images/event1.png',
+                      imageUrl: 'assets/images/event1.png',
                     ),
                     TrendingEventCard(
                       title: 'Workshop: Creative Design',
                       location: 'Jakarta, Indonesia',
                       date: '14 Februari 2024',
-                      imageUrl: 'images/event1.png',
+                      imageUrl: 'assets/images/event1.png',
                     ),
                     TrendingEventCard(
                       title: 'Exhibition: Tech Innovations',
                       location: 'Bandung, Indonesia',
                       date: '20 Maret 2024',
-                      imageUrl: 'images/event1.png',
+                      imageUrl: 'assets/images/event1.png',
                     ),
                   ],
                 ),
@@ -215,7 +215,7 @@ class _EventScreenState extends State<EventScreen> {
                       title: 'Workshop: Event $index',
                       location: 'Location $index',
                       date: 'Date $index',
-                      imageUrl: 'images/event1.png',
+                      imageUrl: 'https://example.com/event_image_$index.png',
                       onTap: () {
                         Navigator.pushNamed(context, '/event-detail');
                       },
