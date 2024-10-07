@@ -83,6 +83,7 @@ class _EventScreenState extends State<EventScreen> {
                         prefixIcon: Icon(Icons.search),
                         hintText: 'Search event',
                         border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(vertical: 15), // Mengatur padding vertikal
                       ),
                     ),
                   ),
@@ -151,30 +152,37 @@ class _EventScreenState extends State<EventScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CategoryChip(
-                    label: 'Seminar',
-                    isSelected: selectedCategory == 'Seminar',
-                    onSelected: () => _selectCategory('Seminar'),
-                  ),
-                  CategoryChip(
-                    label: 'Competition',
-                    isSelected: selectedCategory == 'Competition',
-                    onSelected: () => _selectCategory('Competition'),
-                  ),
-                  CategoryChip(
-                    label: 'Workshop',
-                    isSelected: selectedCategory == 'Workshop',
-                    onSelected: () => _selectCategory('Workshop'),
-                  ),
-                  CategoryChip(
-                    label: 'Exhibition',
-                    isSelected: selectedCategory == 'Exhibition',
-                    onSelected: () => _selectCategory('Exhibition'),
-                  ),
-                ],
+              // Perubahan dilakukan di bagian ini
+              SizedBox(
+                height: 60, // Sesuaikan tinggi agar pas
+                child: ListView(
+                  scrollDirection: Axis.horizontal, // Ubah menjadi horizontal
+                  children: [
+                    CategoryChip(
+                      label: 'Seminar',
+                      isSelected: selectedCategory == 'Seminar',
+                      onSelected: () => _selectCategory('Seminar'),
+                    ),
+                    SizedBox(width: 10), // Tambah jarak antar chip
+                    CategoryChip(
+                      label: 'Competition',
+                      isSelected: selectedCategory == 'Competition',
+                      onSelected: () => _selectCategory('Competition'),
+                    ),
+                    SizedBox(width: 10), // Tambah jarak antar chip
+                    CategoryChip(
+                      label: 'Workshop',
+                      isSelected: selectedCategory == 'Workshop',
+                      onSelected: () => _selectCategory('Workshop'),
+                    ),
+                    SizedBox(width: 10), // Tambah jarak antar chip
+                    CategoryChip(
+                      label: 'Exhibition',
+                      isSelected: selectedCategory == 'Exhibition',
+                      onSelected: () => _selectCategory('Exhibition'),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
               SectionHeader(title: 'Trending Events'),
@@ -207,15 +215,16 @@ class _EventScreenState extends State<EventScreen> {
               SizedBox(height: 20),
               SectionHeader(title: 'Events Near You'),
               SizedBox(
-                height: 200,
+                height: 250, // Tinggi sesuai konten
                 child: ListView.builder(
+                  scrollDirection: Axis.horizontal, // Ubah arah scroll menjadi horizontal
                   itemCount: 5, // Dynamic based on event count
                   itemBuilder: (context, index) {
                     return EventNearYouCard(
                       title: 'Workshop: Event $index',
                       location: 'Location $index',
                       date: 'Date $index',
-                      imageUrl: 'https://example.com/event_image_$index.png',
+                      imageUrl: 'assets/images/event1.png', // Gambar yang sama dengan Trending Event
                       onTap: () {
                         Navigator.pushNamed(context, '/event-detail');
                       },
@@ -260,6 +269,13 @@ class CategoryChip extends StatelessWidget {
         label: Text(label),
         backgroundColor: isSelected ? const Color.fromARGB(255, 32, 90, 249) : const Color.fromARGB(255, 255, 255, 255),
         labelStyle: TextStyle(color: isSelected ? Colors.white : const Color.fromARGB(255, 32, 90, 249)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // Buat lebih rounded
+          side: BorderSide(
+            color: isSelected ? const Color.fromARGB(255, 32, 90, 249) : Colors.grey, // Ubah border berdasarkan isSelected
+          ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8), // Sesuaikan padding agar proporsional
       ),
     );
   }
@@ -385,7 +401,7 @@ class EventNearYouCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(imageUrl, fit: BoxFit.cover),
+            Image.asset(imageUrl, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
