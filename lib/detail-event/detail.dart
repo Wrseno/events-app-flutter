@@ -14,7 +14,7 @@ class PoliventApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Techcomfest',
+      title: 'Polivent App - Detail Event',
       theme: ThemeData(
         fontFamily: 'Inter', // Set Inter as default font
         primaryColor: primaryColor, // Use primaryColor globally
@@ -79,6 +79,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
                         Image.asset(
                           'assets/images/Image_Here.png',
                           fit: BoxFit.cover,
+                          height: 300,
                           width: double.infinity,
                         ),
                         Container(
@@ -97,9 +98,11 @@ class _PoliventDetailState extends State<PoliventDetail> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 4),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0), // Updated padding(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -111,7 +114,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
                               eventTitle,
                               style: TextStyle(
                                 fontSize: 20, // Title font size updated
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w800,
                                 fontFamily: 'Inter',
                               ),
                             ),
@@ -129,30 +132,61 @@ class _PoliventDetailState extends State<PoliventDetail> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 4),
                       Row(
                         children: [
-                          Icon(Icons.place_outlined, color: Colors.grey),
+                          Icon(Icons.place_outlined, color: primaryColor),
                           SizedBox(width: 8),
-                          Text(location),
+                          Text(
+                            location,
+                            style: TextStyle(
+                              fontFamily: 'Inter', // Set font to Inter
+                              fontSize: 14, // Set font size to 13
+                              fontWeight:
+                                  FontWeight.w500, // Medium weight (w500)
+                              color:
+                                  Colors.grey[600], // Optionally set text color
+                            ),
+                          ),
                         ],
                       ),
                       Row(
                         children: [
-                          Icon(Icons.event_outlined, color: Colors.grey),
+                          Icon(Icons.event_outlined, color: primaryColor),
                           SizedBox(width: 8),
-                          Text(dateTime),
+                          Text(
+                            dateTime,
+                            style: TextStyle(
+                              fontFamily: 'Inter', // Set font to Inter
+                              fontSize: 14, // Set font size to 13
+                              fontWeight:
+                                  FontWeight.w500, // Medium weight (w500)
+                              color:
+                                  Colors.grey[600], // Optionally set text color
+                            ),
+                          ),
                         ],
                       ),
                       Row(
                         children: [
                           Icon(Icons.confirmation_number_outlined,
-                              color: Colors.grey),
+                              color: primaryColor),
                           SizedBox(width: 8),
-                          Text('$totalTickets Ticket'),
+                          Text(
+                            '$totalTickets Ticket',
+                            style: TextStyle(
+                              fontFamily: 'Inter', // Set font to Inter
+                              fontSize: 14, // Set font size to 13
+                              fontWeight:
+                                  FontWeight.w500, // Medium weight (w500)
+                              color:
+                                  Colors.grey[600], // Optionally set text color
+                            ),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 16),
+
+                      SizedBox(height: 8),
 
                       Divider(color: Colors.grey[300], thickness: 1),
 
@@ -176,7 +210,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
                                 'UKM PCC',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontFamily: 'Inter',
                                 ),
                               ),
@@ -194,7 +228,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
                       ),
 
                       Divider(color: Colors.grey[300], thickness: 1),
-                      SizedBox(height: 16),
+                      SizedBox(height: 8),
 
                       // Descriptions
                       Text(
@@ -208,12 +242,20 @@ class _PoliventDetailState extends State<PoliventDetail> {
                       SizedBox(height: 8),
                       Text(
                         description,
-                        style: TextStyle(fontSize: 16, fontFamily: 'Inter'),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[700]),
                       ),
                       SizedBox(height: 8),
                       Text(
                         fullDescription,
-                        style: TextStyle(fontSize: 16, fontFamily: 'Inter'),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[700]),
                       ),
                       SizedBox(height: 16),
 
@@ -256,31 +298,53 @@ class _PoliventDetailState extends State<PoliventDetail> {
               ),
               child: Row(
                 children: [
-                  // Tombol Back
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-                    onPressed: () {
-                      // Aksi tombol back
-                    },
-                  ),
-                  Spacer(),
-                  // Judul di tengah
-                  Text(
-                    'Detail Event',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24, // Title font size 20
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Inter',
+                  // Back button with semi-transparent background
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white
+                          .withOpacity(0.2), // Semi-transparent background
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () {
+                        // Aksi tombol back
+                      },
                     ),
                   ),
                   Spacer(),
-                  // Tombol Share
-                  IconButton(
-                    icon: Icon(Icons.share_outlined, color: Colors.white),
-                    onPressed: () {
-                      // Aksi tombol share
-                    },
+                  // Title "Detail Event" in the center
+                  Text(
+                    'Detail Event',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Colors.white,
+                      fontSize: 20, // Font size 20 as per image
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  // Share button with semi-transparent background
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white
+                          .withOpacity(0.2), // Semi-transparent background
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      onPressed: () {
+                        // Aksi tombol share
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -293,7 +357,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               color: Colors.white,
               child: Row(
                 children: [
@@ -303,7 +367,7 @@ class _PoliventDetailState extends State<PoliventDetail> {
                       Text(
                         'Free',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFFAAD14),
                         ),
@@ -361,54 +425,269 @@ class _PoliventDetailState extends State<PoliventDetail> {
   }
 }
 
-class CommentSection extends StatelessWidget {
-  final List<String> comments = [
-    "Seminar ini sangat menarik!",
-    "Apakah ada sesi tanya jawab?",
-    "Topik yang dibahas relevan dengan teknologi masa depan.",
-    "Saya sudah mendaftar! Tidak sabar untuk hadir.",
+class CommentSection extends StatefulWidget {
+  @override
+  _CommentSectionState createState() => _CommentSectionState();
+}
+
+class _CommentSectionState extends State<CommentSection> {
+  final List<Map<String, dynamic>> comments = [
+    {
+      "user": "User1",
+      "text": "Seminar ini sangat menarik!",
+      "replies": [
+        {"user": "User2", "text": "Saya setuju!"},
+      ]
+    },
+    {
+      "user": "User3",
+      "text": "Apakah ada sesi tanya jawab?",
+      "replies": [
+        {"user": "User4", "text": "Ya, sesi tanya jawab akan ada di akhir."}
+      ]
+    },
+    {
+      "user": "User5",
+      "text": "Topik yang dibahas relevan dengan teknologi masa depan.",
+      "replies": []
+    },
   ];
+
+  final TextEditingController _newCommentController = TextEditingController();
+  final TextEditingController _replyController = TextEditingController();
+
+  void _addComment() {
+    if (_newCommentController.text.isNotEmpty) {
+      setState(() {
+        comments.add({
+          "user": "NewUser", // Placeholder for current user
+          "text": _newCommentController.text,
+          "replies": []
+        });
+        _newCommentController.clear();
+      });
+    }
+  }
+
+  void _addReply(int index) {
+    if (_replyController.text.isNotEmpty) {
+      setState(() {
+        comments[index]['replies'].add({
+          "user": "ReplyUser", // Placeholder for reply user
+          "text": _replyController.text
+        });
+        _replyController.clear();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: comments
-          .map(
-            (comment) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: const Color(0xFFB6C9DB),
-                    child: Icon(Icons.person, color: Colors.white),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(comment),
-                        GestureDetector(
-                          onTap: () {
-                            // Aksi ketika tombol reply diklik
-                          },
-                          child: Text(
-                            'Reply',
-                            style: TextStyle(color: Colors.grey),
+      children: [
+        // Display comments and their replies
+        ...comments.map((comment) {
+          int index = comments.indexOf(comment);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: const Color.fromRGBO(255, 191, 28, 1),
+                      child: Icon(Icons.person, color: Colors.white),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            comment['user'], // Display user name or title
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                          Text(
+                            comment['text'],
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Open reply input field
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Card(
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16.0),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: TextField(
+                                                    controller:
+                                                        _replyController,
+                                                    decoration: InputDecoration(
+                                                      hintText:
+                                                          'Type your reply...',
+                                                      hintStyle: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey
+                                                            .withOpacity(0.7),
+                                                      ),
+                                                      border: InputBorder.none,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      _addReply(index);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: Icon(Icons.send,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Text(
+                              'Reply',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.blue,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '2h ago', // Placeholder for time
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+              // Display replies
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: Column(
+                  children: comment['replies']
+                      .map<Widget>((reply) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor:
+                                      const Color.fromRGBO(255, 191, 28, 1),
+                                  child:
+                                      Icon(Icons.person, color: Colors.white),
+                                  radius: 16,
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        reply[
+                                            'user'], // Display reply user name
+                                        style: TextStyle(
+                                          fontFamily: 'Inter',
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        reply['text'],
+                                        style: TextStyle(
+                                          fontFamily: 'Inter',
+                                          fontSize: 14,
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
+            ],
+          );
+        }).toList(),
+
+        SizedBox(height: 16),
+
+        // Add new comment input field (rounded with short height)
+        Card(
+          elevation: 2,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _newCommentController,
+                    decoration: InputDecoration(
+                      hintText: 'Add a comment...',
+                      border: InputBorder.none,
                     ),
                   ),
-                  Text(
-                    '2h ago', // Placeholder for time
-                    style: TextStyle(color: Colors.grey),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
                   ),
-                ],
-              ),
+                  child: IconButton(
+                    onPressed: _addComment,
+                    icon: Icon(Icons.send, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-          )
-          .toList(),
+          ),
+        ),
+      ],
     );
   }
 }

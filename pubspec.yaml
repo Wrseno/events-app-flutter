@@ -1,4 +1,4 @@
-name: Polivent_App
+name: polivent_app
 description: "Polivent App, an Event app"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   google_fonts: ^3.0.1
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:
