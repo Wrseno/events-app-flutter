@@ -33,8 +33,8 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Logo
-              Image.network(
-                'https://static.wikia.nocookie.net/logopedia/images/8/8b/Politeknik_Negeri_Semarang.png/revision/latest?cb=20190922203753',
+              Image.asset(
+                'assets/images/logo_polines.png',
                 height: 130,
               ),
               SizedBox(height: 5),
