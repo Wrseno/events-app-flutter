@@ -8,164 +8,155 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'E-Ticket App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ETicketScreen(),
+      debugShowCheckedModeBanner: false,
+      home: TicketScreen(),
     );
   }
 }
 
-class ETicketScreen extends StatelessWidget {
+class TicketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text('E-Ticket'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
-        ],
+        centerTitle: true,
+        backgroundColor: Colors.blue,
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          ETicketCard(
-            eventName: 'Seminar : Techcomfest',
-            speakerName: 'Wisata Syahdan',
-            imagePath: 'assets/speaker_image.jpg',
-            attendeeName: 'Atsilla Arya',
-            eventTime: '9:00 PM',
-            eventDate: 'Jan 12 2024',
-            seat: 'Open seating',
-            ticketId: 'PTX23121',
-          ),
-          SizedBox(height: 20),
-          ETicketCard(
-            eventName: 'Workshop : Training Basic',
-            imagePath: 'assets/workshop_image.jpg',
-            attendeeName: 'Atsilla Arya',
-            eventTime: '9:00 PM',
-            eventDate: 'Jan 20 2024',
-            seat: 'Open seating',
-            ticketId: 'PTX23122',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ETicketCard extends StatelessWidget {
-  final String eventName;
-  final String speakerName;
-  final String imagePath;
-  final String attendeeName;
-  final String eventTime;
-  final String eventDate;
-  final String seat;
-  final String ticketId;
-
-  ETicketCard({
-    required this.eventName,
-    this.speakerName = '',
-    required this.imagePath,
-    required this.attendeeName,
-    required this.eventTime,
-    required this.eventDate,
-    required this.seat,
-    required this.ticketId,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Container(
-            height: 150,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Container(
+            width: 350,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
             ),
-            child: Stack(
-              children: [
-                if (speakerName.isNotEmpty)
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Text(
-                      'SPEAKER\n$speakerName',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  eventName,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  child: Image.network(
+                    'https://via.placeholder.com/350x150', // Replace with actual image URL
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Name'),
-                        Text(attendeeName),
-                        SizedBox(height: 10),
-                        Text('Date'),
-                        Text(eventDate),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Time'),
-                        Text(eventTime),
-                        SizedBox(height: 10),
-                        Text('Seat'),
-                        Text(seat),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text('Ticket ID - $ticketId'),
-                SizedBox(height: 10),
-                Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.black,
-                    // Replace this with actual QR code generation
-                    child: Center(child: Text('QR Code', style: TextStyle(color: Colors.white))),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Seminar: Techcomfest',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.location_on, color: Colors.grey),
+                          SizedBox(width: 8),
+                          Text('GKT Lt.2'),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Name',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Text(
+                                  'Atsilla Arya',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Time',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Text(
+                                  '9:00 PM',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Date',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Text(
+                                  'Jan 12, 2024',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Seat',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Text(
+                                  'Open seating',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              'Ticket ID - PTX23121',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 8),
+                            Image.network(
+                              'https://via.placeholder.com/150', // Replace with actual QR code image URL
+                              width: 150,
+                              height: 150,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
