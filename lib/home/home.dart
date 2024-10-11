@@ -49,7 +49,7 @@ class _EventScreenState extends State<EventScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hi, Atsiila Arya 👋',
+              'Welcome, Hanif Abdusy',
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
             SizedBox(height: 4),
