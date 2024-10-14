@@ -1,4 +1,4 @@
-# project_flutter
+# polivent_app
 
 A new Flutter project (testing).
 

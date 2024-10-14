@@ -1,8 +1,17 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // Make the status bar transparent
+    systemNavigationBarColor:
+        Colors.transparent, // Make the navigation bar transparent
+    // statusBarIconBrightness:
+    //     Brightness.dark, // Change icon brightness (optional)
+  ));
   runApp(PoliventApp());
 }
 
@@ -76,26 +85,75 @@ class _PoliventDetailState extends State<PoliventDetail> {
                     ),
                     child: Stack(
                       children: [
-                        Image.asset(
-                          'assets/images/Image_Here.png',
-                          fit: BoxFit.cover,
-                          height: 300,
-                          width: double.infinity,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.black.withOpacity(0.6),
-                                Colors.transparent,
-                              ],
-                            ),
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  backgroundColor: Colors
+                                      .black, // Background hitam untuk tampilan full image
+                                  insetPadding: EdgeInsets.all(
+                                      0), // Hilangkan padding di dialog
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pop(); // Tutup dialog saat gambar di-tap lagi
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: PhotoView(
+                                        imageProvider: NetworkImage(
+                                            'https://i.ibb.co.com/pW4RQff/poster-techomfest.jpg'),
+                                        backgroundDecoration: BoxDecoration(
+                                          color: Colors
+                                              .black, // Latar belakang hitam saat full screen
+                                        ),
+                                        minScale: PhotoViewComputedScale
+                                            .contained, // Gambar di-fit sesuai layar
+                                        maxScale:
+                                            PhotoViewComputedScale.covered *
+                                                3.0, // Bisa di-zoom hingga 3x
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Image.network(
+                            'https://i.ibb.co.com/pW4RQff/poster-techomfest.jpg',
+                            alignment: Alignment.topCenter,
+                            fit: BoxFit.cover,
+                            height: 300,
+                            width: double.infinity,
                           ),
                         ),
                       ],
                     ),
+                    // child: Stack(
+                    //   children: [
+                    //     Image.asset(
+                    //       'assets/images/Image_Here.png',
+                    //       fit: BoxFit.cover,
+                    //       height: 300,
+                    //       width: double.infinity,
+                    //     ),
+                    //     // Container(
+                    //     //   decoration: BoxDecoration(
+                    //     //     gradient: LinearGradient(
+                    //     //       begin: Alignment.topCenter,
+                    //     //       end: Alignment.bottomCenter,
+                    //     //       colors: [
+                    //     //         Colors.black.withOpacity(0.6),
+                    //     //         Colors.transparent,
+                    //     //       ],
+                    //     //     ),
+                    //     //   ),
+                    //     // ),
+                    //   ],
+                    // ),
                   ),
                 ),
                 SizedBox(height: 4),
@@ -285,13 +343,13 @@ class _PoliventDetailState extends State<PoliventDetail> {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+              padding: EdgeInsets.symmetric(vertical: 48, horizontal: 16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.7),
                     Colors.transparent,
                   ],
                 ),
@@ -300,6 +358,8 @@ class _PoliventDetailState extends State<PoliventDetail> {
                 children: [
                   // Back button with semi-transparent background
                   Container(
+                    width: 40, // Set width of the container
+                    height: 40, // Set height of the container
                     decoration: BoxDecoration(
                       color: Colors.white
                           .withOpacity(0.2), // Semi-transparent background
@@ -330,6 +390,8 @@ class _PoliventDetailState extends State<PoliventDetail> {
                   Spacer(),
                   // Share button with semi-transparent background
                   Container(
+                    width: 40, // Set width of the container
+                    height: 40, // Set height of the container
                     decoration: BoxDecoration(
                       color: Colors.white
                           .withOpacity(0.2), // Semi-transparent background
@@ -434,20 +496,36 @@ class _CommentSectionState extends State<CommentSection> {
   final List<Map<String, dynamic>> comments = [
     {
       "user": "User1",
+      "userProfileUrl":
+          "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Replace with actual profile picture URL
       "text": "Seminar ini sangat menarik!",
       "replies": [
-        {"user": "User2", "text": "Saya setuju!"},
+        {
+          "user": "User2",
+          "userProfileUrl":
+              "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Replace with actual profile picture URL
+          "text": "Saya setuju!"
+        },
       ]
     },
     {
       "user": "User3",
+      "userProfileUrl":
+          "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Replace with actual profile picture URL
       "text": "Apakah ada sesi tanya jawab?",
       "replies": [
-        {"user": "User4", "text": "Ya, sesi tanya jawab akan ada di akhir."}
+        {
+          "user": "User4",
+          "userProfileUrl":
+              "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Replace with actual profile picture URL
+          "text": "Ya, sesi tanya jawab akan ada di akhir."
+        }
       ]
     },
     {
       "user": "User5",
+      "userProfileUrl":
+          "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Replace with actual profile picture URL
       "text": "Topik yang dibahas relevan dengan teknologi masa depan.",
       "replies": []
     },
@@ -461,11 +539,15 @@ class _CommentSectionState extends State<CommentSection> {
       setState(() {
         comments.add({
           "user": "NewUser", // Placeholder for current user
+          "userProfileUrl":
+              "https://i.ibb.co.com/hWCQWcp/profile-peter.jpg", // Add the actual profile picture URL here
           "text": _newCommentController.text,
           "replies": []
         });
         _newCommentController.clear();
       });
+      FocusScope.of(context)
+          .unfocus(); // Hide the keyboard and cursor after adding a comment
     }
   }
 
@@ -474,10 +556,13 @@ class _CommentSectionState extends State<CommentSection> {
       setState(() {
         comments[index]['replies'].add({
           "user": "ReplyUser", // Placeholder for reply user
+          "userProfileUrl": null, // Add actual reply profile picture URL here
           "text": _replyController.text
         });
         _replyController.clear();
       });
+      FocusScope.of(context)
+          .unfocus(); // Hide the keyboard and cursor after adding a reply
     }
   }
 
@@ -493,112 +578,125 @@ class _CommentSectionState extends State<CommentSection> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: const Color.fromRGBO(255, 191, 28, 1),
-                      child: Icon(Icons.person, color: Colors.white),
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            comment['user'], // Display user name or title
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            comment['text'],
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              // Open reply input field
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Card(
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: TextField(
-                                                    controller:
-                                                        _replyController,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          'Type your reply...',
-                                                      hintStyle: TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.7),
-                                                      ),
-                                                      border: InputBorder.none,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.blue,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      _addReply(index);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    icon: Icon(Icons.send,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Text(
-                              'Reply',
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: comment['userProfileUrl'] != null
+                            ? NetworkImage(comment['userProfileUrl'])
+                            : null, // Load profile image from URL or null
+                        backgroundColor: const Color.fromRGBO(255, 191, 28, 1),
+                        child: comment['userProfileUrl'] == null
+                            ? Icon(Icons.person, color: Colors.white)
+                            : null, // Display placeholder icon if no URL
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              comment['user'],
                               style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.blue,
                                 fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              comment['text'],
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // Open reply input field
+                                showModalBottomSheet(
+                                  isScrollControlled:
+                                      true, // Important for resizing
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom), // Push above the keyboard
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: TextField(
+                                                  controller: _replyController,
+                                                  cursorColor: Colors
+                                                      .blue, // Blue cursor
+                                                  decoration: InputDecoration(
+                                                    hintText:
+                                                        'Type your reply...',
+                                                    hintStyle: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey
+                                                          .withOpacity(0.7),
+                                                    ),
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.blue,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    _addReply(index);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  icon: Icon(Icons.send,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                'Reply',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.blue,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Text(
-                      '2h ago', // Placeholder for time
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
+                      Text(
+                        '2h ago', // Placeholder for time
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // Display replies
@@ -608,42 +706,55 @@ class _CommentSectionState extends State<CommentSection> {
                   children: comment['replies']
                       .map<Widget>((reply) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      const Color.fromRGBO(255, 191, 28, 1),
-                                  child:
-                                      Icon(Icons.person, color: Colors.white),
-                                  radius: 16,
-                                ),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        reply[
-                                            'user'], // Display reply user name
-                                        style: TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        reply['text'],
-                                        style: TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontSize: 14,
-                                          color: Colors.grey[700],
-                                        ),
-                                      ),
-                                    ],
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              padding: EdgeInsets.all(12),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: reply['userProfileUrl'] !=
+                                            null
+                                        ? NetworkImage(reply['userProfileUrl'])
+                                        : null, // Load profile image from URL
+                                    backgroundColor:
+                                        const Color.fromRGBO(255, 191, 28, 1),
+                                    child: reply['userProfileUrl'] == null
+                                        ? Icon(Icons.person,
+                                            color: Colors.white)
+                                        : null, // Display placeholder if no URL
+                                    radius: 16,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          reply[
+                                              'user'], // Display reply user name
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          reply['text'],
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 14,
+                                            color: Colors.grey[700],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ))
                       .toList(),
@@ -667,6 +778,13 @@ class _CommentSectionState extends State<CommentSection> {
                 Expanded(
                   child: TextField(
                     controller: _newCommentController,
+                    cursorColor: Colors.blue, // Set cursor color to blue
+                    onSubmitted: (value) {
+                      if (value.isEmpty) {
+                        FocusScope.of(context)
+                            .unfocus(); // Hide cursor if empty
+                      }
+                    },
                     decoration: InputDecoration(
                       hintText: 'Add a comment...',
                       border: InputBorder.none,
